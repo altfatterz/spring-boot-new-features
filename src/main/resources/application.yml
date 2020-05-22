@@ -2,6 +2,15 @@ server:
   shutdown: graceful
 
 spring:
+  application:
+    name: spring-boot-new-features
   lifecycle:
     timeout-per-shutdown-phase: 30s
 
+# Customize Spring Boot Info actuator
+info:
+  java.vm.vendor: ${java.vm.vendor}
+  java.version: ${java.version}
+  application.encoding: @project.build.sourceEncoding@
+  application.name: ${spring.application.name}
+  spring.boot.version: @spring-boot.version@
