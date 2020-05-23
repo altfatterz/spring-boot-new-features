@@ -1,3 +1,11 @@
+# Customize Spring Boot Info actuator
+info:
+  java.vm.vendor: ${java.vm.vendor}
+  java.version: ${java.version}
+  application.encoding: @project.build.sourceEncoding@
+  application.name: ${spring.application.name}
+  spring.boot.version: @spring-boot.version@
+
 server:
   shutdown: graceful
 
@@ -7,10 +15,13 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 30s
 
-# Customize Spring Boot Info actuator
-info:
-  java.vm.vendor: ${java.vm.vendor}
-  java.version: ${java.version}
-  application.encoding: @project.build.sourceEncoding@
-  application.name: ${spring.application.name}
-  spring.boot.version: @spring-boot.version@
+management:
+  health:
+     probes:
+       enabled: true
+
+endpoint:
+  health:
+    show-details: always
+
+debug: true

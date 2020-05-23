@@ -49,11 +49,41 @@ spring-boot-new-features              0.0.1-SNAPSHOT          ae1c6cd5bde5      
 altfatterz/spring-boot-new-features   latest                  ad563b91e642        40 years ago        232MB
 ```
 
+```bash
+$ docker push altfatterz/spring-boot-new-features:latest
+```
+
 Start the container
 
 ```bash
 $ docker container run -p 8080:8080 altfatterz/spring-boot-new-features:latest
 ```
 
+```
+$ kubectl apply -f k8s.yaml
+$ kubectl get all
+$ kubectl port-forward svc/demo 8080:8080
+```
+
 3. [Liveness and Readiness probes](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready-kubernetes-probes)
 
+```yaml
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          # wait 5 seconds before performing the first probe
+          initialDelaySeconds: 5
+          # probe every 3 seconds
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 3
+```
+
+Resources
+
+1. kind tool: https://kind.sigs.k8s.io/
